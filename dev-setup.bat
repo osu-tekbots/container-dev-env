@@ -28,7 +28,7 @@ set PUBLIC_CONTENT="%1%"
 set PRIVATE_CONTENT="%2%"
 
 :: Get the defined variable names
-call "%cd%^dev-vars.bat"
+call "%cd%\dev-vars.bat"
 
 echo
 echo "Creating bridge network for development containers..."
