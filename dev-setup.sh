@@ -5,11 +5,11 @@ if [ $# -ne 2 ]; then
     echo
     echo "usage: sh dev-setup.sh <local_public_files> <local_private_files>"
     echo
-    echo "<local_public_files> is the local directory of the public files to be served by the"
-    echo "web server (PHP, HTML, CSS, etc.)"
+    echo "    <local_public_files> is the local directory of the public files to be served by the"
+    echo "        web server (PHP, HTML, CSS, etc.)"
     echo
-    echo "<local_private_basepath> is the local directory of the private files (database config,"
-    echo "data directory, logs, etc.) used for website configuration and data storage"
+    echo "    <local_private_basepath> is the local directory of the private files (database config,"
+    echo "        logs, etc.) used for website configuration and data storage"
     echo
     exit 1
 fi
@@ -18,7 +18,9 @@ DB_PASSWORD=""
 
 while [ -z "${DB_PASSWORD}" ]; do
     echo -n 'Enter DB Password: '
-    read -s DB_PASSWORD
+    stty -echo
+    read DB_PASSWORD
+    stty echo
     echo
 done
 
@@ -33,31 +35,31 @@ PUBLIC_CONTENT="$1"
 PRIVATE_CONTENT="$2"
 
 # Get the defined variable names
-. "./dev-vars.sh"
+. './dev-vars.sh'
 
 echo
-echo "Creating bridge network for development containers..."
+echo 'Creating bridge network for development containers...'
 docker network create --driver bridge ${NETWORK_NAME}
 
 echo
-echo "Starting MySQL server container..."
+echo 'Creating and starting MySQL server container...'
 docker run -d --name ${MYSQL_CONTAINER_NAME} \
     --network ${NETWORK_NAME} \
     -e MYSQL_ROOT_PASSWORD="${DB_PASSWORD}" \
     -e MYSQL_DATABASE="${DB_NAME}" \
-    -p 3306:3306 \
+    -p ${MYSQL_LOCAL_PORT}:3306 \
     ${MYSQL_IMAGE}
 
 echo
-echo "Starting phpMyAdmin container..."
+echo 'Creating and starting phpMyAdmin container...'
 docker run -d --name ${PHP_MY_ADMIN_CONTAINER_NAME} \
     --network ${NETWORK_NAME} \
     --link ${MYSQL_CONTAINER_NAME}:db \
-    -p 5000:80 \
+    -p ${PHP_MY_ADMIN_LOCAL_PORT}:80 \
     ${PHP_MY_ADMIN_IMAGE}
 
 echo
-echo "Building and starting custom Apache PHP server for IOTA website..."
+echo "Building and starting custom Apache PHP server for OSU website development..."
 docker build . -t ${APACHE_PHP_IMAGE}
 
 docker run -d --name ${APACHE_PHP_CONTAINER_NAME} \
@@ -84,6 +86,8 @@ echo "    name: ${DB_NAME}"
 echo
 echo "phpMyAdmin is available at http://localhost:${PHP_MY_ADMIN_LOCAL_PORT}"
 echo
-echo "The Apache PHP server serving content for the IOTA website is listening at"
+echo "The Apache PHP server serving content for the website is listening at"
 echo "http://localhost:${APACHE_PHP_LOCAL_PORT}"
 echo
+
+exit 0
