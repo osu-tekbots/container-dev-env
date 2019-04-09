@@ -2,7 +2,7 @@
 . './dev-vars.sh'
 
 echo
-echo "Starting existing containers"
+echo "Starting existing containers..."
 docker start \
     ${MYSQL_CONTAINER_NAME} \
     ${PHP_MY_ADMIN_CONTAINER_NAME} \
