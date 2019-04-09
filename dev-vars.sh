@@ -1,18 +1,14 @@
-#!/usr/bin/env bash
+#!/bin/sh
 MYSQL_VERSION=5.5
 MYSQL_IMAGE="mysql:${MYSQL_VERSION}"
 PHP_MY_ADMIN_IMAGE="phpmyadmin/phpmyadmin"
-APACHE_PHP_IMAGE="apache-php-iota"
+APACHE_PHP_IMAGE="osu-apache-php"
 
-MYSQL_CONTAINER_NAME='mysql-db'
-PHP_MY_ADMIN_CONTAINER_NAME='mysql-admin'
-APACHE_PHP_CONTAINER_NAME='iota-web-server'
+MYSQL_CONTAINER_NAME='osu-mysql-db'
+PHP_MY_ADMIN_CONTAINER_NAME='osu-mysql-admin'
+APACHE_PHP_CONTAINER_NAME='osu-local-web-server'
 
-NETWORK_NAME='iota-dev-net'
-
-PUBLIC_CONTENT="${PWD}/../.."
-
-DB_INI_TEMPLATE="database.template.yaml"
+NETWORK_NAME='osu-local-dev-net'
 
 APACHE_PHP_LOCAL_PORT=7000
 PHP_MY_ADMIN_LOCAL_PORT=5000

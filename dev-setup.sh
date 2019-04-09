@@ -1,9 +1,12 @@
-#!/usr/bin/env bash
+#!/bin/sh
 set -e
 
-if [ -z "$1" ]; then
+if [ $# -ne 2 ]; then
     echo
-    echo "usage: sh dev-setup.sh <local_private_basepath>"
+    echo "usage: sh dev-setup.sh <local_public_files> <local_private_files>"
+    echo
+    echo "<local_public_files> is the local directory of the public files to be served by the"
+    echo "web server (PHP, HTML, CSS, etc.)"
     echo
     echo "<local_private_basepath> is the local directory of the private files (database config,"
     echo "data directory, logs, etc.) used for website configuration and data storage"
@@ -26,8 +29,8 @@ if [ -z "${DB_NAME}" ]; then
     DB_NAME='osulocaldev'
 fi
 
-PRIVATE_CONTENT="$1"
-DB_INI="${PRIVATE_CONTENT}/database.yaml"
+PUBLIC_CONTENT="$1"
+PRIVATE_CONTENT="$2"
 
 # Get the defined variable names
 . "./dev-vars.sh"
@@ -65,13 +68,7 @@ docker run -d --name ${APACHE_PHP_CONTAINER_NAME} \
     ${APACHE_PHP_IMAGE}
 
 echo
-echo "Generating database.ini..."
-sed -e "s/DB_NAME/${DB_NAME}/; s/DB_HOST/${MYSQL_CONTAINER_NAME}/; s/DB_PASSWORD/${DB_PASSWORD}/" \
-    ${DB_INI_TEMPLATE} \
-    > ${DB_INI}
-
-echo
-echo "IoT Alliance website development environment setup complete."
+echo "Local OSU website development environment setup complete."
 echo "3 docker containers were started:"
 echo "    - ${MYSQL_CONTAINER_NAME}"
 echo "    - ${PHP_MY_ADMIN_CONTAINER_NAME}"
@@ -79,8 +76,11 @@ echo "    - ${APACHE_PHP_CONTAINER_NAME}"
 echo
 echo "All containers are part of the ${NETWORK_NAME} docker bridge network."
 echo
-echo "The script has generated the database configuration file in the website's private"
-echo "directory at "
+echo "The script has created a MySQL database server with the following credentials:"
+echo "    host: ${MYSQL_CONTAINER_NAME}"
+echo "    user: root"
+echo "    pass: ${DB_PASSWORD}"
+echo "    name: ${DB_NAME}"
 echo
 echo "phpMyAdmin is available at http://localhost:${PHP_MY_ADMIN_LOCAL_PORT}"
 echo

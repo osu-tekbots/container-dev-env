@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/sh
 # Get the defined variable names
 . "./dev-vars.sh"
 
