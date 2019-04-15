@@ -1,13 +1,7 @@
 ::
-:: Default MySQL version. The version must also be a valid tag for the 
-:: MySQL Docker image.
-::
-set MYSQL_VERSION=5.5
-
-::
 :: Default Docker images to use
 ::
-set MYSQL_IMAGE="mysql:%MYSQL_VERSION%"
+set MYSQL_IMAGE="mariadb:10.3"
 set PHP_MY_ADMIN_IMAGE="phpmyadmin/phpmyadmin"
 set APACHE_PHP_IMAGE="osu-apache-php"
 
