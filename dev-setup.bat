@@ -83,4 +83,6 @@ echo "The Apache PHP server serving content for the website is listening at"
 echo "http://localhost:%APACHE_PHP_LOCAL_PORT%"
 echo
 
+pause
+
 exit /b
