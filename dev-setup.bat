@@ -1,5 +1,5 @@
-if "%1%" == "" (
-    if "%2%" == "" (
+if "%1%"=="" (
+    if "%2%"=="" (
         echo
         echo "usage: dev-setup.bat <local_public_files> <local_private_files>"
         echo
@@ -20,10 +20,10 @@ echo @off
 set /p DB_PASSWORD="Enter DB Password: "
 echo @on
 echo
-if "%DB_PASSWORD%" == "" goto passwordloop
+if "%DB_PASSWORD%"=="" goto passwordloop
 
 set /p DB_NAME="Enter name for default database [osulocaldev]: "
-if "%DB_NAME%" == "" set DB_NAME="osulocaldev"
+if "%DB_NAME%"=="" set DB_NAME="osulocaldev"
 
 set PUBLIC_CONTENT="%1%"
 set PRIVATE_CONTENT="%2%"

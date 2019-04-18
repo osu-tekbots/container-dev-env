@@ -4,8 +4,8 @@
 :: websites.
 ::
 
-if "%1%" == "" (
-    if "%2%" == "" (
+if "%1%"=="" (
+    if "%2%"=="" (
         echo
         echo "usage: dev-setup.bat <local_public_files> <local_private_files>"
         echo
