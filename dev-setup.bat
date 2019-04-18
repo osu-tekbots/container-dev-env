@@ -1,15 +1,16 @@
-if "%1%" == ""
-if "%2%" == "" (
-    echo
-    echo "usage: dev-setup.bat <local_public_files> <local_private_files>"
-    echo
-    echo "    <local_public_files> is the local directory of the public files to be served by the"
-    echo "        web server (PHP, HTML, CSS, etc.)"
-    echo
-    echo "    <local_private_basepath> is the local directory of the private files (database config,"
-    echo "        logs, etc.) used for website configuration and data storage"
-    echo
-    exit /b
+if "%1%" == "" (
+    if "%2%" == "" (
+        echo
+        echo "usage: dev-setup.bat <local_public_files> <local_private_files>"
+        echo
+        echo "    <local_public_files> is the local directory of the public files to be served by the"
+        echo "        web server (PHP, HTML, CSS, etc.)"
+        echo
+        echo "    <local_private_basepath> is the local directory of the private files (database config,"
+        echo "        logs, etc.) used for website configuration and data storage"
+        echo
+        exit /b
+    )
 )
 
 DB_PASSWORD=""
