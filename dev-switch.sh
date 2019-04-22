@@ -36,8 +36,8 @@ echo "Starting new web server"
 docker run -d --name ${APACHE_PHP_CONTAINER_NAME} \
     --network ${NETWORK_NAME} \
     -p ${APACHE_PHP_LOCAL_PORT}:80 \
-    -v ${PUBLIC_CONTENT}:/var/www/html \
-    -v ${PRIVATE_CONTENT}:/var/www \
+    -v "${PUBLIC_CONTENT}":/var/www/html \
+    -v "${PRIVATE_CONTENT}":/var/www \
     ${APACHE_PHP_IMAGE}
 
 echo
