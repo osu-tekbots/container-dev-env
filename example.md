@@ -46,7 +46,7 @@
     reservation_duration = 1
     ```
 
-3. Add `./.private` directory (outside `./public`)
+3. Add `./.private` directory (outside `./public`). *The directory name should match logger.log_file in `config.ini`*
 
 4. Add `./database.ini` directory (outside `./public`):
     ```ini
@@ -57,7 +57,7 @@
     ```
 
 5. Run `sh dev-setup.sh /path/to/project/root/public /path/to/project/root` (or `dev-setup.bat`)
-    1. DB Password: `db-password` or whatever you chose in Step 4
-    2. Default database: `tekbots` or whatever you chose in Step 4
+    1. DB Password: `db-password` or whatever you chose as `password` in Step 4
+    2. Default database: `tekbots` or whatever you chose as `db_name` in Step 4
 
 6. Visit `localhost:7000` and start working!
