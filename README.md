@@ -11,6 +11,8 @@ applications that will run on Oregon State Universtiy ENGR servers. The producti
 1. Run `sh dev-setup.sh` from the command line on Linux or `dev-setup.bat` from the command prompt on Windows for 
    details about the  setup scripts
 
+> Note: On new Macs, you may need to deactivate AirPlay receiver to use ports 5000 and 7000 (default for this tool), or redefine those ports in `dev-vars.local.sh`.
+
 ## Environment Setup
 
 The scripts in this repository create three Docker containers:
