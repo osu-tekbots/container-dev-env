@@ -56,6 +56,7 @@ docker run -d --name ${PHP_MY_ADMIN_CONTAINER_NAME} \
     --network ${NETWORK_NAME} \
     --link ${MYSQL_CONTAINER_NAME}:db \
     -p ${PHP_MY_ADMIN_LOCAL_PORT}:80 \
+    --platform linux/amd64 \
     ${PHP_MY_ADMIN_IMAGE}
 
 echo
