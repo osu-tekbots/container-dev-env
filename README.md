@@ -15,6 +15,8 @@ applications that will run on Oregon State Universtiy ENGR servers. The producti
 
 ## Environment Setup
 
+### See an example setup [here](./example.md)
+
 The scripts in this repository create three Docker containers:
 - A MySQL container
 - A phpMyAdmin Container
