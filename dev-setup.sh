@@ -1,15 +1,15 @@
 #!/bin/sh
 set -e
 
-if [ $# -ne 2 ]; then
+if [ $# -lt 1 ] || [ $# -gt 2 ]; then
     echo
-    echo "usage: sh dev-setup.sh <local_public_files> <local_private_files>"
+    echo "usage: sh dev-setup.sh <local_public_files> [<local_private_files>]"
     echo
     echo "    <local_public_files> is the local directory of the public files to be served by the"
     echo "        web server (PHP, HTML, CSS, etc.)"
     echo
-    echo "    <local_private_basepath> is the local directory of the private files (database config,"
-    echo "        logs, etc.) used for website configuration and data storage"
+    echo "    <local_private_files> is the optional local directory of the private files (database"
+    echo "        config, logs, etc.) used for website configuration and data storage"
     echo
     exit 1
 fi
@@ -62,13 +62,23 @@ docker run -d --name ${PHP_MY_ADMIN_CONTAINER_NAME} \
 echo
 echo "Building and starting custom Apache PHP server for OSU website development..."
 docker build . -t ${APACHE_PHP_IMAGE}
-
-docker run -d --name ${APACHE_PHP_CONTAINER_NAME} \
-    --network ${NETWORK_NAME} \
-    -p ${APACHE_PHP_LOCAL_PORT}:80 \
-    -v "${PUBLIC_CONTENT}":/var/www/html \
-    -v "${PRIVATE_CONTENT}":/var/www \
-    ${APACHE_PHP_IMAGE}
+# Create server with links to public (and maybe private) volume
+if [ -z "${PRIVATE_CONTENT}" ]; then
+    # No private volume to link
+    docker run -d --name ${APACHE_PHP_CONTAINER_NAME} \
+        --network ${NETWORK_NAME} \
+        -p ${APACHE_PHP_LOCAL_PORT}:80 \
+        -v "${PUBLIC_CONTENT}":/var/www/html \
+        ${APACHE_PHP_IMAGE}
+else
+    # Link private volume in addition to public volume
+    docker run -d --name ${APACHE_PHP_CONTAINER_NAME} \
+        --network ${NETWORK_NAME} \
+        -p ${APACHE_PHP_LOCAL_PORT}:80 \
+        -v "${PUBLIC_CONTENT}":/var/www/html \
+        -v "${PRIVATE_CONTENT}":/var/www \
+        ${APACHE_PHP_IMAGE}
+fi
 
 echo
 echo "Local OSU website development environment setup complete."
