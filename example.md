@@ -17,6 +17,7 @@
     private_files = /var/www ; Based on Docker container path, *NOT* OS filepath
 
     [server]
+    environment = dev
     display_errors = yes
     display_errors_severity = all
     auth_providers_config_file = auth.ini
