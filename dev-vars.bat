@@ -27,6 +27,6 @@ set APACHE_PHP_LOCAL_PORT=7000
 :: 
 :: Allow overwrite of these default values with a local configuration file
 ::
-if exists "%cd%\dev-vars.local.sh" (
+if exist "%cd%\dev-vars.local.sh" (
     call "%cd%\dev-vars.local.sh"
 )
