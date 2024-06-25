@@ -1,16 +1,14 @@
 if "%1%"=="" (
-    if "%2%"=="" (
-        echo
-        echo "usage: dev-setup.bat <local_public_files> <local_private_files>"
-        echo
-        echo "    <local_public_files> is the local directory of the public files to be served by the"
-        echo "        web server (PHP, HTML, CSS, etc.)"
-        echo
-        echo "    <local_private_basepath> is the local directory of the private files (database config,"
-        echo "        logs, etc.) used for website configuration and data storage"
-        echo
-        exit /b
-    )
+    echo
+    echo "usage: dev-setup.bat <local_public_files> [<local_private_files>]"
+    echo
+    echo "    <local_public_files> is the local directory of the public files to be served by the"
+    echo "        web server (PHP, HTML, CSS, etc.)"
+    echo
+    echo "    <local_private_files> is the optional local directory of the private files (database config,"
+    echo "        logs, etc.) used for website configuration and data storage"
+    echo
+    exit /b
 )
 
 DB_PASSWORD=""
@@ -56,12 +54,22 @@ echo
 echo "Building and starting custom Apache PHP server for OSU website development..."
 docker build . -t %APACHE_PHP_IMAGE%
 
-docker run -d --name %APACHE_PHP_CONTAINER_NAME% ^
-    --network %NETWORK_NAME% ^
-    -p %APACHE_PHP_LOCAL_PORT%:80 ^
-    -v %PUBLIC_CONTENT%:/var/www/html ^
-    -v %PRIVATE_CONTENT%:/var/www ^
-    %APACHE_PHP_IMAGE%
+IF %PRIVATE_CONTENT% == "" (
+    docker run -d --name %APACHE_PHP_CONTAINER_NAME% ^
+        --network %NETWORK_NAME% ^
+        -p %APACHE_PHP_LOCAL_PORT%:80 ^
+        -v %PUBLIC_CONTENT%:/var/www/html ^
+        %APACHE_PHP_IMAGE%
+)
+
+ELSE (
+    docker run -d --name %APACHE_PHP_CONTAINER_NAME% ^
+        --network %NETWORK_NAME% ^
+        -p %APACHE_PHP_LOCAL_PORT%:80 ^
+        -v %PUBLIC_CONTENT%:/var/www/html ^
+        -v %PRIVATE_CONTENT%:/var/www ^
+        %APACHE_PHP_IMAGE%
+)
 
 echo
 echo "Local OSU website development environment setup complete."
