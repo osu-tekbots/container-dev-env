@@ -26,12 +26,10 @@ These three containers work together to provide a local, live interactive develo
 and applications. There are default configuration values for the setup in `dev-vars.{sh,bat}`. These values can be 
 overloaded by creating a `dev-vars.local.{sh,bat}` file. All `.local.{sh,bat}` files will be ignored by Git.
 
-The setup scripts take two arguments: the location of the public files to be served by the web server, and the location
-of private files outside the public web root but accessible by the web application (such as configuration files, 
-secrets, etc.). An example of running the script in Linux would be:
+The setup scripts take one argument: the location of the public files to be served by the web server. An example of running the script in Linux would be:
 
 ```sh
-sh dev-setup.sh /home/john/websites/osu/capstone/public /home/john/websites/osu/capstone
+sh dev-setup.sh /home/john/websites/osu/capstone/public
 ```
 
 The above command assumes that there is a directory `websites/osu/capstone` under the user `john` that contains 
@@ -49,11 +47,10 @@ After you have paused development, you can start the containers again using the 
 ## Switch Development Contexts
 It may be the case that you want to work on a different website frontend that shares same backend database with
 other sites you are working on. Rather than destroying the containers and starting over again, you can use the
-`dev-switch.{sh,bat}` script to easily switch development contexts and restart the web server with different public
-and private directory paths.
+`dev-switch.{sh,bat}` script to easily switch development contexts and restart the web server with a different public directory path.
 
 ```sh
-sh dev-switch.sh /path/to/new/public /path/to/new/private
+sh dev-switch.sh /path/to/new/public
 ```
 
 ## Resources

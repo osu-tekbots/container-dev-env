@@ -14,7 +14,7 @@
     ```ini
     ; All files referenced through the configuration are relative to this private path
 
-    private_files = /var/www ; Based on Docker container path, *NOT* OS filepath
+    private_files = /var/www/html/.private ; Based on Docker container path, *NOT* OS filepath
 
     [server]
     environment = dev
@@ -40,7 +40,7 @@
     base_url = http://localhost:7000/               ; Update if you use a different port
 
     [logger]
-    log_file = .private/ ; Path to where the monthly log file should be created
+    log_file = logs/ ; Path to where the monthly log file should be created
     level = info
 
     [database]
@@ -51,9 +51,9 @@
     reservation_duration = 1
     ```
 
-1. Add a `.private/` directory (in `TekBots/`; outside `TekBots/public/`). *The directory name should match logger.log_file in `config.ini`*
+1. Add a `.private/` directory (in `TekBots/public/`).
 
-1. Add a `database.ini` file (in `TekBots/`; outside `TekBots/public/`):
+1. Add a `database.ini` file (in `TekBots/public/.private/`):
     ```ini
     host = osu-mysql-db     ; May need to be replaced with your local IP
     user = root
@@ -68,10 +68,9 @@
 
 1. Set up the containers using the start script in this repo (`.sh` on Mac/ Linux or `.bat` script on Windows).
     ```console
-    user@laptop:~/GitHub/container-dev-env$ sh dev-setup.sh /path/to/project/root/public /path/to/project/root
+    user@laptop:~/GitHub/container-dev-env$ sh dev-setup.sh /path/to/project/root/public
     ```
     - `/path/to/project/root/public` would be `~/GitHub/TekBots/public` in the previous suggestions
-    - `/path/to/project/root` would be `~/GitHub/TekBots` in the previous suggestions
     - You will be prompted for two values:
         1. DB Password: `db-password` or whatever you chose as `password` in Step 4
         2. Default database: `tekbots` or whatever you chose as `db_name` in Step 4
