@@ -69,6 +69,8 @@
 1. Set up the containers using the start script in this repo (`.sh` on Mac/ Linux or `.bat` script on Windows).
     ```console
     user@laptop:~/GitHub/container-dev-env$ sh dev-setup.sh /path/to/project/root/public
+
+    user@laptop:~/GitHub/container-dev-env$ ./dev-setup.bat /path/to/project/root/public
     ```
     - `/path/to/project/root/public` would be `~/GitHub/TekBots/public` in the previous suggestions
     - You will be prompted for two values:
