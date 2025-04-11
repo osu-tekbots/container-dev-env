@@ -115,3 +115,4 @@
 
 1. To stop the containers: run sh dev-stop.sh or ./dev-stop.bat
 1. To restart the database and website from fresh, and delete the containers, run sh dev-teardown.sh or ./dev-teardown.bat
+1. To change the ports of the mysql database (if you already have one running on 3306) update dev-vars and run teardown + setup again
