@@ -10,12 +10,15 @@ applications that will run on Oregon State Universtiy ENGR servers. The producti
 1. Clone the repository to your machine
 1. Run `sh dev-setup.sh` from the command line on Linux or `dev-setup.bat` from the command prompt on Windows for 
    details about the  setup scripts
+1. Run `sh dev-start.sh` from the command line on Linux or `dev-start.bat` from the command prompt to start the containers
 
 > Note: On new Macs, you may need to deactivate AirPlay receiver to use ports 5000 and 7000 (default for this tool), or redefine those ports in `dev-vars.local.sh`.
 
 ## Environment Setup
 
-### See an example setup [here](./example.md)
+## Follow the example setup: [here](./example.md)
+
+## General Information:
 
 The scripts in this repository create three Docker containers:
 - A MySQL container
@@ -26,10 +29,10 @@ These three containers work together to provide a local, live interactive develo
 and applications. There are default configuration values for the setup in `dev-vars.{sh,bat}`. These values can be 
 overloaded by creating a `dev-vars.local.{sh,bat}` file. All `.local.{sh,bat}` files will be ignored by Git.
 
-The setup scripts take one argument: the location of the public files to be served by the web server. An example of running the script in Linux would be:
+The setup scripts take two arguments: the location of the public files to be served by the web server and a .private folder to store private values in. An example of running the script in Linux would be:
 
 ```sh
-sh dev-setup.sh /home/john/websites/osu/capstone/public
+sh dev-setup.sh /home/john/websites/osu/capstone/public /home/john/websites/osu/capstone/.private
 ```
 
 The above command assumes that there is a directory `websites/osu/capstone` under the user `john` that contains 
