@@ -3,18 +3,18 @@
 :: host directory, effectively allowing us to easily switch between working on different
 :: websites.
 ::
-
+@echo off
 if "%1%"=="" (
-    echo
+    echo.
     echo "usage: dev-setup.bat <local_public_files> [<local_private_files>]"
-    echo
+    echo.
     echo "    <local_public_files> is the local directory of the public files to be served by the"
     echo "        web server (PHP, HTML, CSS, etc.)"
-    echo
+    echo.
     echo "    <local_private_files> is the optional local directory of the private files (database config,"
     echo "          logs, etc.) used for website configuration and data storage The old version will *not* "
     echo "          be used if no path is given"
-    echo
+    echo.
     exit /b
 )
 
@@ -24,26 +24,26 @@ set PRIVATE_CONTENT="%2%"
 :: Get the defined variable names
 call "%cd%\dev-vars.bat"
 
-echo
+echo.
 echo "Stopping the current web server"
 docker stop %APACHE_PHP_CONTAINER_NAME%
 
-echo
+echo.
 echo "Removing the current web server"
 docker rm %APACHE_PHP_CONTAINER_NAME%
 
-echo
+echo.
 echo "Starting the new web server"
 
 IF %PRIVATE_CONTENT% == "" (
+    echo "Creating Docker container without private folder"
     docker run -d --name %APACHE_PHP_CONTAINER_NAME% ^
         --network %NETWORK_NAME% ^
         -p %APACHE_PHP_LOCAL_PORT%:80 ^
         -v %PUBLIC_CONTENT%:/var/www/html ^
         %APACHE_PHP_IMAGE%
-)
-
-ELSE (
+) ELSE (
+    echo "Creating Docker container with private folder"
     docker run -d --name %APACHE_PHP_CONTAINER_NAME% ^
         --network %NETWORK_NAME% ^
         -p %APACHE_PHP_LOCAL_PORT%:80 ^
@@ -52,8 +52,8 @@ ELSE (
         %APACHE_PHP_IMAGE%
 )
 
-echo
+echo.
 echo "Done"
-echo
+echo.
 
 exit /b
