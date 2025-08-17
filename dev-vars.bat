@@ -20,7 +20,7 @@ set NETWORK_NAME="osu-local-dev-net"
 ::
 :: Default port mappings
 ::
-set MYSQL_LOCAL_PORT=3306
+set MYSQL_LOCAL_PORT=3309
 set PHP_MY_ADMIN_LOCAL_PORT=5000
 set APACHE_PHP_LOCAL_PORT=7000
 
